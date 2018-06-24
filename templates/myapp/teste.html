@@ -1,0 +1,26 @@
+{% extends 'myapp/base.html' %}
+{% block titulo %}Pagina de teste{% endblock %}
+{% block body %}
+
+<link rel="stylesheet" type="text/css" href="../static/myapp/css/style.css" />
+
+<script>
+  $( function() {
+    $( "#datepicker" ).datepicker({
+     yearRange: '1900:' + new Date().getFullYear(),
+     maxDate: 0,
+     changeMonth: true,
+     changeYear: true
+
+     });
+
+  } );
+</script>
+
+
+
+<p>Date: <input type="text" id="datepicker"></p>
+
+
+
+{% endblock %}

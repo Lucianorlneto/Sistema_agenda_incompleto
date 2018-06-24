@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block titulo %}Nome{% endblock %}</title>
+    {% load staticfiles %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet" type="text/css">
+    <!-- Latest compiled and minified CSS -->
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">-->
+
+    <!--&lt;!&ndash; Latest compiled and minified JavaScript &ndash;&gt;-->
+    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>-->
+
+    <!--&lt;!&ndash; Latest compiled and minified Locales &ndash;&gt;-->
+    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>-->
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/estilo.css' %}" />
+
+    {% block head_extra %}
+    {% endblock head_extra %}
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+
+        <!-- Header -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topnNavBar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'myapp:index' %}">Clínica Tchan</a>
+        </div>
+
+        <!-- Itens -->
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="">
+                    <a href="{% url 'myapp:index' %}">
+                        <span class="glyphicon glyphicon-cd" aria-hidden="true"></span>&nbsp;
+                        Teste
+                    </a>
+                </li>
+                <li class="">
+                    <a href="{% url 'myapp:agenda' %}">
+                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;
+                        Agenda
+                    </a>
+                </li>
+                {% if user.groups.all.0.name == 'clinico' or user.groups.all.0.name == 'paciente'%}
+                <li class="">
+                    <a href="{% url 'myapp:listar_fichas' %}">
+                        <span class="glyphicon glyphicon-list" aria-hidden="true"></span>&nbsp;
+                        Fichas
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+
+            <!--<form class="navbar-form navbar-left" role="search" method="get" action="#">-->
+            <!--<div class="form-group">-->
+                <!--<input type="text" class="form-control" name="q" value="">-->
+            <!--</div>-->
+            <!--<button type="submit" class="btn btn-default">Pesquisar</button>-->
+            <!--</form>-->
+
+        <ul class="nav navbar-nav navbar-right">
+            <li class="">
+                {%  if user.is_authenticated  %}
+                    <a href="{% url 'myapp:marcar_sessoes' %}">
+                        <span class="glyphicon glyphicon-check" aria-hidden="true"></span>&nbsp;
+                        Marcar sessões
+                    </a>
+                {% endif %}
+            </li>
+            <li class="">
+                {% if user.groups.all.0.name == 'clinico' %}
+                        <a href="{% url 'myapp:criar_ficha' %}">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Criar Ficha
+                        </a>
+                {% endif %}
+            </li>
+            <li class="">
+                {% if user.is_authenticated %}
+                  {% if user.is_staff %}
+                    <a href="{% url 'myapp:cadastro' %}">
+                      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Cadastro
+                    </a>
+                  {% endif %}
+                {% else %}
+                <a href="{% url 'myapp:cadastro' %}">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Cadastro
+                </a>
+                {% endif %}
+            </li>
+            <li class="">
+                {% if user.is_authenticated %}
+                <a href="{% url 'myapp:logout' %}">
+                    <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp; Logout
+                </a>
+                {% else %}
+                <a href="{% url 'myapp:login' %}">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp; Login
+                </a>
+                {% endif %}
+            </li>
+        </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+{% block body %}
+{% endblock %}
+
+</body>
+</html>

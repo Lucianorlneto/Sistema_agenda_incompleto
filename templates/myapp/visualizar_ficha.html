@@ -1,0 +1,73 @@
+{% extends 'myapp/base.html' %}
+{% block titulo %}{{ title }}{% endblock %}
+{% block body %}
+
+    <!--{% for field in fichaModel %}-->
+        <!--<div class="form-group">-->
+            <!--<div class="col-sm">-->
+                <!--<span class="text-danger small">{{ field.errors }}</span>-->
+            <!--</div>-->
+            <!--<label class="col-sm">{{ field.name }}</label>-->
+            <!--<div class="col-sm">{{ field }}</div>-->
+        <!--</div>-->
+    <!--{% endfor %}-->
+    {% if user.groups.all.0.name == 'paciente' %}
+        {% if ficha.paciente_id.id == user.id %}
+            <div class="form-group">
+                <div class="col-sm">
+                    <span class="text-danger small">{{ field.errors }}</span>
+                </div>
+                <label class="col-sm">Paciente: {{ ficha.paciente_id.first_name }} {{ ficha.paciente_id.last_name }}</label>
+            </div>
+            <div class="form-group">
+                <div class="col-sm">
+                    <span class="text-danger small">{{ field.errors }}</span>
+                </div>
+                <label class="col-sm">Fisioterapeuta: {{ ficha.clinico_id.first_name }} {{ ficha.clinico_id.last_name }}</label>
+            </div>
+            <div class="form-group">
+                <div class="col-sm">
+                    <span class="text-danger small">{{ field.errors }}</span>
+                </div>
+                <label class="col-sm">Data: {{ ficha.data_criacao }} </label>
+            </div>
+            <div class="form-group">
+                <div class="col-sm">
+                    <span class="text-danger small">{{ field.errors }}</span>
+                </div>
+                <label class="col-sm">Observação: {{ ficha.observacao }}</label>
+            </div>
+        {% endif %}
+    {% endif %}
+    {% if user.groups.all.0.name == 'clinico' %}
+        {% if ficha.clinico_id.id == user.id %}
+            <div class="form-group">
+                <div class="col-sm">
+                    <span class="text-danger small">{{ field.errors }}</span>
+                </div>
+                <label class="col-sm">Paciente: {{ ficha.paciente_id.first_name }} {{ ficha.paciente_id.last_name }}</label>
+            </div>
+            <div class="form-group">
+                <div class="col-sm">
+                    <span class="text-danger small">{{ field.errors }}</span>
+                </div>
+                <label class="col-sm">Fisioterapeuta: {{ ficha.clinico_id.first_name }} {{ ficha.clinico_id.last_name }}</label>
+            </div>
+            <div class="form-group">
+                <div class="col-sm">
+                    <span class="text-danger small">{{ field.errors }}</span>
+                </div>
+                <label class="col-sm">Data: {{ ficha.data_criacao }} </label>
+            </div>
+            <div class="form-group">
+                <div class="col-sm">
+                    <span class="text-danger small">{{ field.errors }}</span>
+                </div>
+                <label class="col-sm">Observação: {{ ficha.observacao }}</label>
+            </div>
+        {% endif %}
+    {% endif %}
+
+
+
+{% endblock %}
